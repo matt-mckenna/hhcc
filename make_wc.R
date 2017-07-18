@@ -49,23 +49,16 @@ make_wc <- function ( infile, freq_col=NULL, outdir=NULL, remwords=NULL, maxword
         
         this_df <- dplyr::select_ (dat, this_col)
         this_df <- this_df[!this_df[this_col] == '',]
-        # print ('yolo')
-        # print(this_df)
-        # print(class(this_df))
+
         corpus <- Corpus(VectorSource(tolower(as.character(this_df) )))
         corpus <- tm_map(corpus, stripWhitespace)
         corpus <- tm_map(corpus, PlainTextDocument)
         
         corpus <- tm_map(corpus, removeWords, c(remwords, stopwords('english')))
         corpus <- tm_map(corpus, removePunctuation)
-        # print ('yolo2')
-        # print (corpus)
+
         
-        # return(wordcloud(corpus, colors=colors, scale=c(2,.3), max.words=input$max, 
-        #                  random.order=FALSE,
-        #                  ordered.colors=FALSE, use.r.layout=FALSE) )
-        
-        
+      
         return(wordcloud(corpus, colors=colors, scale=c(7,.2), max.words=input$max, 
                          random.order=FALSE,
                          ordered.colors=FALSE ) )
